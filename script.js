@@ -44,9 +44,8 @@ function drawScore() {
 function updateGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    drawPaddle(0, paddle1Y); // Raquete esquerda
-    drawPaddle(canvas.width - paddleWidth, paddle2Y); // Raquete direita
-
+    drawPaddle(0, paddle1Y); 
+    drawPaddle(canvas.width - paddleWidth, paddle2Y); 
     drawBall();
     drawScore();
 
@@ -61,28 +60,22 @@ function updateGame() {
     ballX += ballDX;
     ballY += ballDY;
 
-    // Verificar colisão com as paredes superior e inferior
     if (ballY - ballRadius < 0 || ballY + ballRadius > canvas.height) {
         ballDY = -ballDY;
     }
 
-    // Verificar colisão com a raquete esquerda
     if (ballX - ballRadius < paddleWidth && ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
         ballDX = -ballDX;
-        // Ajustar o ângulo de reflexo da bola com base na posição de colisão
         let deltaY = ballY - (paddle1Y + paddleHeight / 2);
         ballDY = deltaY * 0.2;
     }
 
-    // Verificar colisão com a raquete direita
     if (ballX + ballRadius > canvas.width - paddleWidth && ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
         ballDX = -ballDX;
-        // Ajustar o ângulo de reflexo da bola com base na posição de colisão
         let deltaY = ballY - (paddle2Y + paddleHeight / 2);
         ballDY = deltaY * 0.2;
     }
 
-    // Verificar se a bola saiu pela esquerda ou pela direita
     if (ballX - ballRadius < 0) {
         player2Score++;
         resetBall();
